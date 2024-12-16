@@ -31,7 +31,7 @@ export default function HomeHero() {
             unoptimized
             loading="eager"
             className={cn(
-              'object-cover object-top blur-xl transition duration-300',
+              'object-cover object-top blur-xl transition duration-1000',
               { 'blur-none': isLoaded },
             )}
             onLoad={() => setIsLoaded(true)}
