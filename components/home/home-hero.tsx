@@ -25,13 +25,13 @@ export default function HomeHero() {
           }}
         >
           <Image
-            src="https://cdn.yikzero.com/markdown/images/202412162223929.png"
+            src="https://cdn.yikzero.com/markdown/images/202412162223929.png!/format/webp/fh/810"
             alt="Background Image"
             fill
             unoptimized
             loading="eager"
             className={cn(
-              'object-cover object-top blur-xl transition duration-1000',
+              'object-cover object-top blur-xl transition duration-700',
               { 'blur-none': isLoaded },
             )}
             onLoad={() => setIsLoaded(true)}
