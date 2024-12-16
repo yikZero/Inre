@@ -11,6 +11,10 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'cdn.yikzero.com',
       },
+      {
+        protocol: 'https',
+        hostname: '*.doubanio.com',
+      },
     ],
   },
 };

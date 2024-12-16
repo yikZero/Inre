@@ -41,6 +41,7 @@ function MediaPoster({ imdbId, tmdbId, mediaType }: MediaPosterProps) {
   const { data, isLoading } = useSWR<TMDBResponse | TMDBFindResponse>(
     apiUrl,
     fetcher,
+    { revalidateOnFocus: false },
   );
 
   const media = tmdbId
