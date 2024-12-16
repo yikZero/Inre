@@ -18,7 +18,7 @@ export default function MainNav() {
           <Link key={link.id} href={link.link} className="h-[4.5rem] px-4">
             <div
               className={cn(
-                'relative flex h-full items-center text-[0.875rem] text-white/65 transition duration-300 hover:text-white/85',
+                'relative flex h-full cursor-pointer items-center text-[0.875rem] text-white/65 transition duration-300 hover:text-white/85',
                 isActive && 'font-medium text-white/85',
               )}
             >
