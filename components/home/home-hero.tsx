@@ -1,16 +1,22 @@
+'use client';
+
+import { useState } from 'react';
+
 import Image from 'next/image';
 import Link from 'next/link';
 
-import HomeBackgroundImg from '@/images/home-background.png';
+import { cn } from '@/lib/utils';
 
 import { ArrowUpRight, ChevronRight } from 'lucide-react';
 
 export default function HomeHero() {
+  const [isLoaded, setIsLoaded] = useState(false);
+
   return (
     <>
       <div className="relative">
         <div
-          className="pointer-events-none absolute inset-x-0 -z-10 h-[50.625rem]"
+          className="pointer-events-none absolute inset-x-0 -z-10 h-[50.625rem] w-full"
           style={{
             WebkitMaskImage:
               'linear-gradient(to bottom, black 75%, transparent 100%)',
@@ -19,10 +25,16 @@ export default function HomeHero() {
           }}
         >
           <Image
-            loading="eager"
-            src={HomeBackgroundImg}
+            src="https://cdn.yikzero.com/markdown/images/202412162223929.png"
             alt="Background Image"
-            className="object-cover object-center"
+            fill
+            unoptimized
+            loading="eager"
+            className={cn(
+              'object-cover object-top blur-xl transition duration-300',
+              { 'blur-none': isLoaded },
+            )}
+            onLoad={() => setIsLoaded(true)}
           />
           <div className="absolute inset-0 bg-[#09090B]/[0.88]" />
         </div>
