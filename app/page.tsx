@@ -1,7 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import HomeRecommendCard from '@/components/home-recommend';
 import HomeBackgroundImg from '@/images/home-background.png';
+import { ccRecommends, yikZeroRecommends } from '@/lib/data/recommend-data';
 
 import { ArrowUpRight, ChevronRight } from 'lucide-react';
 
@@ -19,13 +21,14 @@ export default function Home() {
           }}
         >
           <Image
+            loading="eager"
             src={HomeBackgroundImg}
             alt="Background Image"
             className="object-cover object-center"
           />
           <div className="absolute inset-0 bg-[#09090B]/[0.88]" />
         </div>
-        <div className="mx-auto flex max-w-[78rem] flex-col items-center gap-12 pt-[10.5rem]">
+        <div className="mx-auto flex flex-col items-center gap-12 px-6 pt-[10.5rem]">
           <Link
             href="https://ro.yikzero.com/about"
             className="group flex w-fit flex-row gap-1.5 rounded-full border border-white/15 bg-white/10 py-0.5 pl-0.5 pr-2 backdrop-blur-sm transition duration-300 hover:border-white/10"
@@ -47,7 +50,7 @@ export default function Home() {
               <span>探索无垠影视世界</span>
               <span>尽享精彩视听盛宴</span>
             </h1>
-            <div className="flex flex-col text-[0.9375rem] leading-6 tracking-[0.3px] text-white/65">
+            <div className="flex flex-col items-center text-[0.9375rem] leading-6 tracking-[0.3px] text-white/65">
               <span>
                 👏 欢迎来到 INRE，这是一个融合个人兴趣与技术实践的影视搜索平台。
               </span>
@@ -64,6 +67,18 @@ export default function Home() {
             <button className="h-10 rounded-lg border border-white/10 bg-black/25 px-4 text-[0.9375rem] font-medium text-white transition duration-300 hover:opacity-80">
               查看推荐
             </button>
+          </div>
+          <div className="flex w-full max-w-[78rem] flex-row gap-4 px-6 pt-40">
+            <HomeRecommendCard
+              title="陈宝推荐"
+              link="/recommend"
+              recommendData={ccRecommends}
+            />
+            <HomeRecommendCard
+              title="张宝推荐"
+              link="/recommend"
+              recommendData={yikZeroRecommends}
+            />
           </div>
         </div>
       </div>
