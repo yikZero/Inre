@@ -69,7 +69,8 @@ async function getDetailsFromDouban(doubanId: string): Promise<MediaResult> {
       summary,
     };
   } catch (error) {
-    throw new Error('获取豆瓣详情失败');
+    console.error('Error:', error);
+    throw new Error('获取豆瓣详情失败: ' + (error as Error).message);
   }
 }
 
@@ -107,6 +108,7 @@ async function getTmdbIdAndTitle(
 
     return { tmdbId, title };
   } catch (error) {
+    console.error('Error:', error);
     throw new Error('获取TMDB详情失败');
   }
 }
