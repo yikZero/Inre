@@ -8,37 +8,53 @@ import fetcher from '@/lib/fetcher';
 import { ChevronRight } from 'lucide-react';
 import useSWR from 'swr';
 
-interface Subject {
-  rate: string;
+interface Movie {
+  id: number;
   title: string;
-  url: string;
-  cover: string;
-  id: string;
-  episodes_info?: string;
+  overview: string;
+  poster_path: string;
+  vote_average: number;
+  release_date: string;
+}
+
+interface TVShow {
+  id: number;
+  name: string;
+  overview: string;
+  poster_path: string;
+  vote_average: number;
+  first_air_date: string;
+}
+
+interface TMDBResponse {
+  results: (Movie | TVShow)[];
 }
 
 interface HotProps {
   title: string;
-  type: string;
+  type: 'movie' | 'tv';
   link: string;
 }
 
 export default function HomeHot({ title, type, link }: HotProps) {
-  const { data, isLoading } = useSWR<{ subjects: Subject[] }>(
-    `/api/douban/search_subjects?type=${type}&tag=%E7%83%AD%E9%97%A8&page_limit=6`,
+  const { data, isLoading } = useSWR<TMDBResponse>(
+    `/api/tmdb/${type}/popular?language=zh-CN&page=1&region=SGP`,
     fetcher,
     {
       revalidateOnFocus: false,
     },
   );
 
-  if (isLoading || !data?.subjects) {
+  if (isLoading || !data?.results) {
     return (
       <div className="mx-auto mt-16 max-w-[78rem] px-6">
         <div className="h-[17.2rem] w-full animate-pulse rounded-lg bg-white/5" />
       </div>
     );
   }
+
+  // 只取前6个结果
+  const items = data.results.slice(0, 6);
 
   return (
     <div className="group mx-auto mt-[4.5rem] max-w-[78rem] px-6">
@@ -48,8 +64,12 @@ export default function HomeHot({ title, type, link }: HotProps) {
             <h2 className="text-base font-medium text-white">{title}</h2>
             <div className="h-2 w-[1px] bg-white/25" />
             <div className="flex flex-row gap-3">
-              <div className="text-sm font-medium text-white/85">豆瓣</div>
-              <div className="text-sm text-white/65">IMDb</div>
+              <div className="cursor-pointer text-sm font-medium text-white/85">
+                TMDB
+              </div>
+              <div className="cursor-not-allowed text-sm font-normal text-white/65">
+                豆瓣
+              </div>
             </div>
           </div>
           <Link
@@ -61,13 +81,17 @@ export default function HomeHot({ title, type, link }: HotProps) {
           </Link>
         </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
-          {data.subjects.map((item) => (
+          {items.map((item) => (
             <MediaCard
               key={item.id}
-              title={item.title}
-              description={item.episodes_info}
-              rate={item.rate}
-              cover={item.cover}
+              title={'name' in item ? item.name : item.title}
+              description={
+                'first_air_date' in item
+                  ? item.first_air_date
+                  : item.release_date
+              }
+              rate={item.vote_average.toFixed(1)}
+              cover={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
             />
           ))}
         </div>

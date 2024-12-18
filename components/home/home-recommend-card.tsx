@@ -73,7 +73,7 @@ export default function HomeRecommendCard({
   recommendData,
 }: HomeRecommendCardProps) {
   return (
-    <div className="group flex w-full flex-col gap-3 rounded-xl bg-gradient-to-b from-white/[0.04] to-white/[0.09] px-4 pb-4 pt-3 outline outline-white/10 transition duration-300 hover:from-white/[0.07] hover:to-white/[0.13] hover:outline-white/15">
+    <div className="group flex w-full flex-col gap-3 rounded-xl bg-gradient-to-b from-white/[0.04] to-white/[0.09] px-4 pb-4 pt-3 outline outline-1 outline-white/10 transition duration-300 hover:from-white/[0.07] hover:to-white/[0.13] hover:outline-white/15">
       <div className="flex flex-row">
         <h2 className="w-full text-[0.9375rem] font-medium text-white">
           {title}
