@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum MediaType {
+  movie
+  tv
+  other
+}
+
+model Media {
+  id           Int       @id @default(autoincrement())
+  title        String
+  type         MediaType @default(other)
+  doubanId     String    @unique
+  imdbId       String?   @unique
+  tmdbId       Int?      @unique
+  doubanRating Float? // 豆瓣评分，可为空
+  summary      String?   @db.Text // 剧情简介，使用Text类型以支持长文本
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@index([doubanRating]) // 添加评分索引以优化查询
+}
