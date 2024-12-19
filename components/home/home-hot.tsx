@@ -53,7 +53,6 @@ export default function HomeHot({ title, type, link }: HotProps) {
     );
   }
 
-  // 只取前6个结果
   const items = data.results.slice(0, 6);
 
   return (
@@ -84,6 +83,8 @@ export default function HomeHot({ title, type, link }: HotProps) {
           {items.map((item) => (
             <MediaCard
               key={item.id}
+              id={String(item.id)}
+              type={type}
               title={'name' in item ? item.name : item.title}
               description={
                 'first_air_date' in item

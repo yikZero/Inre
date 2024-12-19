@@ -1,8 +1,10 @@
+import { Suspense } from 'react';
+
 import Link from 'next/link';
 
 import MainNav from '@/components/header/main-nav';
 import { Logo } from '@/components/icons';
-import SearchButton from '@/components/search-button';
+import SearchMenu from '@/components/search/search-menu';
 
 export default function Header() {
   return (
@@ -16,7 +18,9 @@ export default function Header() {
             <div className="h-4 w-[1px] bg-white/15" />
             <MainNav />
           </div>
-          <SearchButton />
+          <Suspense>
+            <SearchMenu />
+          </Suspense>
         </div>
       </header>
     </>

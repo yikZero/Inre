@@ -1,21 +1,26 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface MediaCardProps {
+  id: string;
   title: string;
   description?: string;
+  type: string;
   rate?: string;
   cover: string;
 }
 
 export default function MediaCard({
+  id,
   title,
   description,
+  type,
   rate,
   cover,
 }: MediaCardProps) {
   return (
     <>
-      <div className="flex flex-col">
+      <Link href={`/${type}/${id}`} className="flex flex-col">
         <div className="relative h-[17.2rem] w-full overflow-hidden rounded-lg">
           {rate && (
             <div className="absolute right-0 top-0 z-10 rounded-bl-lg rounded-tr-lg bg-black/25 px-2 py-0.5 text-sm font-medium text-white/85">
@@ -28,7 +33,7 @@ export default function MediaCard({
             sizes="96px"
             fill
             alt={title}
-            className="object-cover"
+            className="object-cover transition duration-500 hover:scale-105"
           />
         </div>
         <div className="flex flex-col">
@@ -41,7 +46,7 @@ export default function MediaCard({
             </div>
           )}
         </div>
-      </div>
+      </Link>
     </>
   );
 }
