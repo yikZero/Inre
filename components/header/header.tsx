@@ -1,3 +1,5 @@
+'use client';
+
 import { Suspense } from 'react';
 
 import Link from 'next/link';
@@ -5,11 +7,22 @@ import Link from 'next/link';
 import MainNav from '@/components/header/main-nav';
 import { Logo } from '@/components/icons';
 import SearchMenu from '@/components/search/search-menu';
+import { useScrollDetector } from '@/components/useScrollDetector';
+import { cn } from '@/lib/utils';
 
 export default function Header() {
+  const isScrolled = useScrollDetector();
+
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 flex h-[4.5rem] items-center justify-center border-b border-white/[0.09] transition duration-300">
+      <header
+        className={cn(
+          'fixed inset-x-0 top-0 z-50 flex h-[4.5rem] items-center justify-center border-b border-white/[0.09] transition duration-300',
+          {
+            'bg-background/85 backdrop-blur-md': isScrolled,
+          },
+        )}
+      >
         <div className="flex w-full max-w-[78rem] items-center justify-between px-6">
           <div className="flex flex-row items-center gap-6">
             <Link href="/" className="transition duration-300 hover:opacity-80">
