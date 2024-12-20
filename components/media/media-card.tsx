@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { cn } from '@/lib/utils';
+
 interface MediaCardProps {
   id: string;
   title: string;
@@ -8,6 +10,7 @@ interface MediaCardProps {
   type: string;
   rate?: string;
   cover: string;
+  isHomepage?: boolean;
 }
 
 export default function MediaCard({
@@ -17,11 +20,19 @@ export default function MediaCard({
   type,
   rate,
   cover,
+  isHomepage = true,
 }: MediaCardProps) {
   return (
     <>
       <Link href={`/${type}/${id}`} className="flex flex-col">
-        <div className="relative h-[17.2rem] w-full overflow-hidden rounded-lg">
+        <div
+          className={cn(
+            'relative h-[17.2rem] w-full overflow-hidden rounded-lg',
+            {
+              'h-[20.875rem]': !isHomepage,
+            },
+          )}
+        >
           {rate && (
             <div className="absolute right-0 top-0 z-10 rounded-bl-lg rounded-tr-lg bg-black/25 px-2 py-0.5 text-sm font-medium text-white/85">
               {rate}

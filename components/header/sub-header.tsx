@@ -6,7 +6,7 @@ import DoubanLogo from '@/images/douban.png';
 export default function SubHeader() {
   return (
     <>
-      <div className="fixed inset-x-0 top-[4.5rem] h-[3.375rem] border-b border-white/[0.09] bg-background/85 backdrop-blur-md">
+      <div className="fixed inset-x-0 top-[4.5rem] z-50 h-[3.375rem] border-b border-white/[0.09] bg-background/85 backdrop-blur-md">
         <div className="mx-auto flex h-full max-w-[78rem] flex-row items-center gap-3 px-6">
           <div className="flex h-[1.75rem] flex-row items-center gap-[6px] rounded-[6px] bg-white px-3">
             <Image

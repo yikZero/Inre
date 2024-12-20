@@ -1,17 +1,46 @@
-import { Metadata } from 'next';
+'use client';
 
 import SubHeader from '@/components/header/sub-header';
+import MediaCard from '@/components/media/media-card';
+import fetcher from '@/lib/fetcher';
 
-export const metadata: Metadata = {
-  title: '电视剧列表 - INRE',
-  description: 'Remember the gentle whispers of relaxation',
-};
+import useSWR from 'swr';
+
+interface Movie {
+  id: number;
+  title: string;
+  overview: string;
+  poster_path: string;
+  vote_average: number;
+  release_date: string;
+}
+
+interface TVShow {
+  id: number;
+  name: string;
+  overview: string;
+  poster_path: string;
+  vote_average: number;
+  first_air_date: string;
+}
+
+interface TMDBResponse {
+  results: (Movie | TVShow)[];
+}
 
 export default function Page() {
+  const { data } = useSWR<TMDBResponse>(
+    `/api/tmdb/tv/popular?language=zh-CN&page=1&region=SGP`,
+    fetcher,
+    {
+      revalidateOnFocus: false,
+    },
+  );
+
   return (
     <>
       <SubHeader />
-      <div className="mx-auto mt-[124px] max-w-[78rem] px-6">
+      <div className="mx-auto mt-[124px] flex max-w-[78rem] flex-col gap-0 px-6">
         <div className="flex flex-row justify-between py-8">
           <div className="text-2xl font-semibold text-white">
             近期热门电视剧
@@ -27,6 +56,24 @@ export default function Page() {
               高分
             </div>
           </div>
+        </div>
+        <div className="grid grid-cols-5 gap-x-5 gap-y-8">
+          {data?.results.map((item) => (
+            <MediaCard
+              key={item.id}
+              id={String(item.id)}
+              type="tv"
+              title={'name' in item ? item.name : item.title}
+              description={
+                'first_air_date' in item
+                  ? item.first_air_date
+                  : item.release_date
+              }
+              rate={item.vote_average.toFixed(1)}
+              cover={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+              isHomepage={false}
+            />
+          ))}
         </div>
       </div>
     </>
