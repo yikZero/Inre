@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 
-import MediaCard from '@/components/media-card';
+import MediaCard from '@/components/media/media-card';
 import fetcher from '@/lib/fetcher';
 
 import { ChevronRight } from 'lucide-react';

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 
+import Footer from '@/components/footer';
 import Header from '@/components/header/header';
 
 import './globals.css';
@@ -18,7 +19,8 @@ export default function RootLayout({
     <html lang="zh-CN" className="dark">
       <body className="bg-background antialiased">
         <Header />
-        {children}
+        <main className="min-h-dvh">{children}</main>
+        <Footer />
       </body>
     </html>
   );
